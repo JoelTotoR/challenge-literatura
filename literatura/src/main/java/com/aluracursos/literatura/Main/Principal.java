@@ -10,7 +10,6 @@ import com.aluracursos.literatura.service.ConsumoAPI;
 import com.aluracursos.literatura.service.ConvertirDatos;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Principal {
     private Scanner input = new Scanner(System.in);
@@ -107,13 +106,13 @@ public class Principal {
 
     private void buscarAutoresRegistrados(){
         autores = autorRepo.findAll();
+        System.out.println("\nLos autores registrados son:");
         autores.stream()
                 .sorted(Comparator.comparing(Autor::getNombre))
                 .forEach(System.out::println);
     }
 
     private void buscarAutoresVivios(){
-        System.out.println("Ingrese el año para buscar el autor");
         Integer anio = null; // Inicializa el año
 
         while (anio == null) {
@@ -147,7 +146,7 @@ public class Principal {
                 """);
         String lenguaje = input.nextLine().toLowerCase();
         Integer recuento = libroRepo.recuentoDeLibrosPorIdioma(lenguaje);
-        System.out.println("El numero de libros en este idioma son: " + recuento);
+        System.out.println("\nEl numero de libros en este idioma son: " + recuento + "\n");
         libros = libroRepo.findByLenguaje(lenguaje);
         libros.stream()
                 .sorted(Comparator.comparing(Libro::getTitulo))
